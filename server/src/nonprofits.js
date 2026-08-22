@@ -236,7 +236,9 @@ function toOrganization(raw, coords, center) {
     isSynthetic: false,
     source: 'irs',
     sourceUrl: `https://projects.propublica.org/nonprofits/organizations/${raw.ein}`,
-    lastVerifiedAt: new Date().toISOString(),
+    // Fetch time, not verification time — `complianceVerifiedAt` above is the
+    // field that reflects an actual registry check.
+    fetchedAt: new Date().toISOString(),
     locationPrecision: 'city',
     enrichment: null,
     raw: { ntee_code: raw.ntee_code, subseccd: raw.subseccd },

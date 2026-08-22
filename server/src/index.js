@@ -15,6 +15,7 @@ import { fetchNonprofitsNear, prewarm } from './nonprofits.js';
 import { normalizeElement } from './normalize.js';
 import { enrichOrganizations } from './enrich.js';
 import { distanceMiles } from './distance.js';
+import { createAnimalsHandler } from './animals.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SEED_FILE = path.join(__dirname, '..', 'data', 'seed-bay-area.json');
@@ -144,9 +145,15 @@ function dedupe(orgs) {
   return kept;
 }
 
-app.post('/api/search', async (req, res) => {
+/**
+ * Resolves the organizations near a query.
+ *
+ * Shared by /api/search and /api/animals so the two endpoints can never
+ * disagree about what counts as nearby. Returns `{error, status}` rather than
+ * throwing or writing a response, leaving each caller to shape its own.
+ */
+async function resolveOrganizations(body = {}) {
   const warnings = [];
-  const body = req.body || {};
 
   const location = typeof body.location === 'string' ? body.location.trim() : '';
   const rawLat = Number(body.lat);
@@ -154,7 +161,7 @@ app.post('/api/search', async (req, res) => {
   const hasCoords = Number.isFinite(rawLat) && Number.isFinite(rawLon);
 
   if (!location && !hasCoords) {
-    return res.status(400).json({ error: 'location or lat/lon is required' });
+    return { error: 'location or lat/lon is required', status: 400 };
   }
 
   let radiusMiles = Number(body.radiusMiles);
@@ -170,6 +177,10 @@ app.post('/api/search', async (req, res) => {
   // Registry source is on by default: it is the only source that sees
   // foster-based rescues, which Overpass structurally cannot.
   const includeNonprofits = body.includeNonprofits !== false;
+  // Opt-in offline mode: serve the seed file and query nothing live. The seed
+  // adapter is the only animal feed that works without a network, so this is
+  // what makes the pipeline demonstrable when the venue wifi dies.
+  const useSeedData = body.useSeedData === true;
 
   let center;
   let resolvedName;
@@ -182,22 +193,28 @@ app.post('/api/search', async (req, res) => {
       center = { lat: geo.lat, lon: geo.lon };
       resolvedName = geo.displayName;
     } catch (err) {
-      return res.status(422).json({ error: `Could not resolve location: ${err.message}` });
+      return { error: `Could not resolve location: ${err.message}`, status: 422 };
     }
   }
 
   let organizations = [];
+  let overpassFailed = false;
 
-  // Distinguish "the API failed" from "the API worked and the area is empty".
-  // fetchNearby returns [] for both, so record which one actually happened
-  // rather than telling the user Overpass was down when it wasn't.
-  const elements = await fetchNearby({ ...center, radiusMiles, kinds });
-  const overpassFailed = elements === null || elements.overpassFailed === true;
-  if (elements.length > 0) {
-    organizations = elements
-      .map((el) => normalizeElement(el, center))
-      .filter((org) => org.lat != null && org.lon != null)
-      .filter((org) => org.distanceMiles == null || org.distanceMiles <= radiusMiles);
+  // `useSeedData` skips every live source outright rather than letting them
+  // fail and fall through. Waiting ~80s for four Overpass endpoints to time
+  // out is not "offline support"; asking for seed data should cost nothing.
+  if (!useSeedData) {
+    // Distinguish "the API failed" from "the API worked and the area is empty".
+    // fetchNearby returns [] for both, so record which one actually happened
+    // rather than telling the user Overpass was down when it wasn't.
+    const elements = await fetchNearby({ ...center, radiusMiles, kinds });
+    overpassFailed = elements.overpassFailed === true;
+    if (elements.length > 0) {
+      organizations = elements
+        .map((el) => normalizeElement(el, center))
+        .filter((org) => org.lat != null && org.lon != null)
+        .filter((org) => org.distanceMiles == null || org.distanceMiles <= radiusMiles);
+    }
   }
 
   if (organizations.length === 0) {
@@ -214,7 +231,9 @@ app.post('/api/search', async (req, res) => {
         .map((org) => withDistance(org, center))
         .filter((org) => org.distanceMiles == null || org.distanceMiles <= radiusMiles);
       organizations = seedInRadius;
-      if (overpassFailed) {
+      if (useSeedData) {
+        warnings.push('Seed data requested explicitly — no live sources were queried for this response.');
+      } else if (overpassFailed) {
         warnings.push('Live map data is unavailable — showing seeded Bay Area data instead.');
       } else if (seedInRadius.length > 0) {
         warnings.push('No live map results in this area — showing seeded Bay Area data instead.');
@@ -224,7 +243,7 @@ app.post('/api/search', async (req, res) => {
     }
   }
 
-  if (includeNonprofits) {
+  if (includeNonprofits && !useSeedData) {
     const registry = await fetchNonprofitsNear({ center, radiusMiles });
     if (registry.length) {
       organizations = organizations.concat(registry);
@@ -252,10 +271,12 @@ app.post('/api/search', async (req, res) => {
 
   organizations = dedupe(organizations);
 
-  if (kinds.length && kinds.length < SUPPORTED_KINDS.length) {
-    organizations = organizations.filter(
-      (org) => kinds.includes(org.kind) || org.isSynthetic,
-    );
+  // Applied unconditionally. Previously this only ran when a strict subset was
+  // selected and exempted synthetic records — but the synthetic foster homes
+  // are all kind `animal_boarding`, so they surfaced even with Boarding
+  // unchecked. A deselected kind should mean deselected.
+  if (kinds.length) {
+    organizations = organizations.filter((org) => kinds.includes(org.kind));
   }
 
   if (enrich) {
@@ -263,6 +284,17 @@ app.post('/api/search', async (req, res) => {
   }
 
   organizations.sort((a, b) => (a.distanceMiles ?? Infinity) - (b.distanceMiles ?? Infinity));
+
+  return { location, radiusMiles, kinds, center, resolvedName, organizations, warnings };
+}
+
+app.post('/api/search', async (req, res) => {
+  const resolved = await resolveOrganizations(req.body || {});
+  if (resolved.error) {
+    return res.status(resolved.status || 400).json({ error: resolved.error });
+  }
+
+  const { location, radiusMiles, center, resolvedName, organizations, warnings } = resolved;
 
   const byKind = {};
   const bySource = {};
@@ -278,6 +310,8 @@ app.post('/api/search', async (req, res) => {
     warnings,
   });
 });
+
+app.post('/api/animals', createAnimalsHandler({ resolveOrganizations }));
 
 app.listen(PORT, () => {
   console.log(`dog-agentic-search server listening on port ${PORT}`);

@@ -129,7 +129,10 @@ export function normalizeElement(el, center) {
     isSynthetic: false,
     source: 'overpass',
     sourceUrl: `https://www.openstreetmap.org/${el.type}/${el.id}`,
-    lastVerifiedAt: new Date().toISOString(),
+    // When we pulled it, not when anyone confirmed it. Seed records carry a
+    // real hand-checked `lastVerifiedAt`; an OSM tag has been verified by
+    // nobody, and calling this "verified" would overstate what we know.
+    fetchedAt: new Date().toISOString(),
     enrichment: null,
     raw: { ...tags },
   };

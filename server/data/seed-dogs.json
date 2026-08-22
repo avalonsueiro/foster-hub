@@ -1,0 +1,542 @@
+[
+  {
+    "sourceAnimalId": "seed-001",
+    "orgId": "seed:muttville-senior-dog-rescue",
+    "sourceUrl": "https://muttville.org/dogs",
+    "source": "seed",
+    "name": "Winifred",
+    "species": "dog",
+    "breed": "Chihuahua Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 11,
+    "weightLbs": 8,
+    "goodWithDogs": "Yes",
+    "goodWithKids": "No",
+    "houseTrained": true,
+    "description": "Eleven years old and entirely certain the sunniest chair is hers. Winifred came in when her person moved into assisted living.",
+    "photos": [
+      "https://placedog.net/640/420?id=101"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-002",
+    "orgId": "seed:muttville-senior-dog-rescue",
+    "sourceUrl": "https://muttville.org/dogs",
+    "source": "seed",
+    "name": "Barnaby",
+    "species": "dog",
+    "breed": "Beagle",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 9,
+    "weightLbs": 24,
+    "goodWithDogs": 1,
+    "specialNeeds": "Yes",
+    "description": "Barnaby is deaf and does beautifully with hand signals. Learns them faster than most hearing dogs learn words.",
+    "photos": [
+      "https://placedog.net/640/420?id=102"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-003",
+    "orgId": "seed:muttville-senior-dog-rescue",
+    "sourceUrl": "https://muttville.org/dogs",
+    "source": "seed",
+    "name": "Pepper",
+    "species": "dog",
+    "breed": "Miniature Poodle",
+    "sex": "F",
+    "isSynthetic": true,
+    "age": "senior",
+    "weightLbs": 12,
+    "houseTrained": "yes",
+    "description": "Quiet, tidy, and a devoted lap occupant.",
+    "photos": [
+      "https://placedog.net/640/420?id=103"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-004",
+    "orgId": "seed:rocket-dog-rescue",
+    "sourceUrl": "https://www.rocketdogrescue.org/adopt",
+    "source": "seed",
+    "name": "Juniper",
+    "species": "dog",
+    "breed": "Pit Bull Terrier Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageMonths": 18,
+    "size": "Large",
+    "goodWithDogs": "No",
+    "goodWithKids": "Yes",
+    "description": "Juniper is dog-selective and thrives as the only dog. Knows sit, down, and a very reliable recall.",
+    "photos": [],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-005",
+    "orgId": "seed:rocket-dog-rescue",
+    "sourceUrl": "https://www.rocketdogrescue.org/adopt",
+    "source": "seed",
+    "name": "Tugboat",
+    "species": "dog",
+    "breed": "American Bulldog",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageMonths": 36,
+    "weightLbs": 71,
+    "goodWithCats": "No",
+    "houseTrained": "Yes",
+    "description": "Seventy pounds of enthusiasm with no idea how large he is.",
+    "photos": [
+      "https://placedog.net/640/420?id=105"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-006",
+    "orgId": "seed:family-dog-rescue",
+    "sourceUrl": "https://ilovefamilydog.org/adopt",
+    "source": "seed",
+    "name": "Clementine",
+    "species": "dog",
+    "breed": "Australian Shepherd Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageMonths": 5,
+    "goodWithKids": "Yes",
+    "goodWithDogs": "Yes",
+    "description": "A puppy, with everything that implies. Will need training and a great deal of exercise.",
+    "photos": [
+      "https://placedog.net/640/420?id=106"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-007",
+    "orgId": "seed:family-dog-rescue",
+    "sourceUrl": "https://ilovefamilydog.org/adopt",
+    "source": "seed",
+    "name": "Mose",
+    "species": "dog",
+    "breed": "Labrador Retriever",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 4,
+    "weightLbs": 68,
+    "goodWithDogs": "Yes",
+    "goodWithCats": "Yes",
+    "goodWithKids": "Yes",
+    "houseTrained": "Yes",
+    "description": "The easy one. Good with everybody, walks politely, sleeps through the night.",
+    "photos": [
+      "https://placedog.net/640/420?id=107"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-008",
+    "orgId": "seed:grateful-dogs-rescue",
+    "sourceUrl": "https://www.gratefuldogsrescue.org/adopt",
+    "source": "seed",
+    "name": "Sable",
+    "species": "dog",
+    "breed": "Shepherd Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 3,
+    "weightLbs": 52,
+    "description": "Recently arrived; temperament assessment is not complete yet. Ask the shelter what they know.",
+    "photos": [
+      "https://placedog.net/640/420?id=108"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-009",
+    "orgId": "seed:grateful-dogs-rescue",
+    "sourceUrl": "https://www.gratefuldogsrescue.org/adopt",
+    "source": "seed",
+    "name": "Ferdinand",
+    "species": "dog",
+    "breed": "Basset Hound",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 6,
+    "weightLbs": 48,
+    "goodWithDogs": "Yes",
+    "specialNeeds": "No",
+    "description": "Ferdinand's ears require weekly cleaning and he considers this a personal attack.",
+    "photos": [
+      "https://placedog.net/640/420?id=109"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-010",
+    "orgId": "seed:milo-foundation",
+    "sourceUrl": "https://www.milofoundation.org/adopt",
+    "source": "seed",
+    "name": "Atlas",
+    "species": "dog",
+    "breed": "Great Pyrenees",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 2,
+    "weightLbs": 118,
+    "goodWithKids": "Yes",
+    "goodWithDogs": "Yes",
+    "description": "A livestock guardian at heart. Needs space, a fence, and somebody who wanted a large dog on purpose.",
+    "photos": [
+      "https://placedog.net/640/420?id=110"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-011",
+    "orgId": "seed:milo-foundation",
+    "sourceUrl": "https://www.milofoundation.org/adopt",
+    "source": "seed",
+    "name": "Wren",
+    "species": "dog",
+    "breed": "Border Collie Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageMonths": 22,
+    "weightLbs": 34,
+    "goodWithDogs": "Yes",
+    "houseTrained": "Yes",
+    "description": "Wren needs a job. Any job. She will invent one otherwise, and you will not like it.",
+    "photos": [
+      "https://placedog.net/640/420?id=111"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-012",
+    "orgId": "seed:sfspca-adoption-center",
+    "sourceUrl": "https://www.sfspca.org/adoptions/dogs/",
+    "source": "seed",
+    "name": "Otis",
+    "species": "dog",
+    "breed": "Boxer Mix",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 5,
+    "weightLbs": 59,
+    "status": "Adoption Pending",
+    "goodWithKids": "Yes",
+    "description": "Otis has an application in progress.",
+    "photos": [
+      "https://placedog.net/640/420?id=112"
+    ]
+  },
+  {
+    "sourceAnimalId": "seed-013",
+    "orgId": "seed:sfspca-adoption-center",
+    "sourceUrl": "https://www.sfspca.org/adoptions/dogs/",
+    "source": "seed",
+    "name": "Marigold",
+    "species": "dog",
+    "breed": "Dachshund",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 7,
+    "weightLbs": 15,
+    "goodWithCats": "Yes",
+    "houseTrained": "Yes",
+    "description": "Small, opinionated, and fond of blankets.",
+    "photos": [
+      "https://placedog.net/640/420?id=113"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-014",
+    "orgId": "seed:sfspca-adoption-center",
+    "sourceUrl": "https://www.sfspca.org/adoptions/dogs/",
+    "source": "seed",
+    "name": "Dash",
+    "species": "dog",
+    "breed": "Whippet Mix",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageMonths": 30,
+    "weightLbs": 29,
+    "goodWithDogs": "Yes",
+    "goodWithCats": "No",
+    "description": "Fast. Startlingly fast. A securely fenced yard is not optional.",
+    "photos": [
+      "https://placedog.net/640/420?id=114"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-015",
+    "orgId": "seed:oakland-animal-services",
+    "sourceUrl": "https://www.oaklandanimalservices.org/adopt",
+    "source": "seed",
+    "name": "Hazel",
+    "species": "dog",
+    "breed": "Rottweiler Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 4,
+    "weightLbs": 84,
+    "goodWithDogs": "No",
+    "houseTrained": "Yes",
+    "description": "Hazel is looking for an experienced handler and a home without other dogs.",
+    "photos": [
+      "https://placedog.net/640/420?id=115"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-016",
+    "orgId": "seed:oakland-animal-services",
+    "sourceUrl": "https://www.oaklandanimalservices.org/adopt",
+    "source": "seed",
+    "name": "Pilot",
+    "species": "dog",
+    "breed": "Husky Mix",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 2,
+    "size": "large",
+    "goodWithDogs": "Yes",
+    "goodWithKids": "Yes",
+    "description": "Vocal, athletic, and an accomplished escape artist. Six-foot fence minimum.",
+    "photos": [
+      "https://placedog.net/640/420?id=116"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-017",
+    "orgId": "seed:berkeley-humane",
+    "sourceUrl": "https://www.berkeleyhumane.org/adopt",
+    "source": "seed",
+    "name": "Fig",
+    "species": "dog",
+    "breed": "Terrier Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageMonths": 14,
+    "weightLbs": 19,
+    "goodWithDogs": "Yes",
+    "goodWithCats": "Yes",
+    "goodWithKids": "Yes",
+    "description": "Fig is small, cheerful, and gets along with absolutely everyone.",
+    "photos": [
+      "https://placedog.net/640/420?id=117"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-018",
+    "orgId": "seed:berkeley-humane",
+    "sourceUrl": "https://www.berkeleyhumane.org/adopt",
+    "source": "seed",
+    "name": "Cormac",
+    "species": "dog",
+    "breed": "Standard Poodle",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 8,
+    "weightLbs": 55,
+    "houseTrained": "Yes",
+    "goodWithKids": "Yes",
+    "description": "Dignified, already trained, and mostly interested in a quiet routine.",
+    "photos": [
+      "https://placedog.net/640/420?id=118"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-019",
+    "orgId": "seed:peninsula-humane-society",
+    "sourceUrl": "https://phs-spca.org/adopt",
+    "source": "seed",
+    "name": "Rosalind",
+    "species": "dog",
+    "breed": "Corgi Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 3,
+    "weightLbs": 27,
+    "goodWithDogs": "Yes",
+    "goodWithKids": "Yes",
+    "houseTrained": "Yes",
+    "description": "Short legs, long opinions.",
+    "photos": [
+      "https://placedog.net/640/420?id=119"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-020",
+    "orgId": "seed:humane-society-silicon-valley",
+    "sourceUrl": "https://www.hssv.org/adopt",
+    "source": "seed",
+    "name": "Bartholomew",
+    "species": "dog",
+    "breed": "Mastiff Mix",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 5,
+    "weightLbs": 132,
+    "goodWithKids": "Yes",
+    "goodWithDogs": "Yes",
+    "description": "An enormous, deeply gentle dog who would like to sit on you.",
+    "photos": [
+      "https://placedog.net/640/420?id=120"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-021",
+    "orgId": "seed:marin-humane",
+    "sourceUrl": "https://www.marinhumane.org/adopt",
+    "source": "seed",
+    "name": "Thistle",
+    "species": "dog",
+    "breed": "Cattle Dog Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageMonths": 20,
+    "weightLbs": 41,
+    "goodWithDogs": "Yes",
+    "goodWithCats": "No",
+    "description": "Sharp, driven, and happiest with a hiking partner.",
+    "photos": [
+      "https://placedog.net/640/420?id=121"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-022",
+    "orgId": "seed:coppers-dream-rescue",
+    "sourceUrl": "https://www.coppersdream.org/adopt",
+    "source": "seed",
+    "name": "Copper",
+    "species": "dog",
+    "breed": "Golden Retriever Mix",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 6,
+    "weightLbs": 64,
+    "goodWithDogs": "Yes",
+    "goodWithCats": "Yes",
+    "goodWithKids": "Yes",
+    "houseTrained": "Yes",
+    "description": "The rescue's namesake. Steady, soft, and easy to love.",
+    "photos": [
+      "https://placedog.net/640/420?id=122"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-023",
+    "orgId": "seed:joybound-people-and-pets",
+    "sourceUrl": "https://joybound.org/adopt",
+    "source": "seed",
+    "name": "Nell",
+    "species": "dog",
+    "breed": "Spaniel Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 9,
+    "weightLbs": 31,
+    "specialNeeds": "Yes",
+    "houseTrained": "Yes",
+    "description": "Nell is managing early kidney disease and needs a prescription diet. Otherwise thoroughly herself.",
+    "photos": [
+      "https://placedog.net/640/420?id=123"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-024",
+    "orgId": "seed:palo-alto-animal-shelter",
+    "sourceUrl": "https://petsinneed.org/adopt",
+    "source": "seed",
+    "name": "Quill",
+    "species": "dog",
+    "breed": "Shiba Inu Mix",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 3,
+    "weightLbs": 23,
+    "goodWithDogs": "No",
+    "goodWithCats": "No",
+    "description": "Independent, fastidious, and would prefer to be your only animal.",
+    "photos": [
+      "https://placedog.net/640/420?id=124"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-025",
+    "orgId": "seed:sf-animal-care-control",
+    "sourceUrl": "https://www.sfanimalcare.org/adopt",
+    "source": "seed",
+    "name": "Bramble",
+    "species": "dog",
+    "breed": "Shepherd Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 2,
+    "weightLbs": 47,
+    "status": "Adopted",
+    "goodWithKids": "Yes",
+    "description": "Already went home. Kept here so the status filter has something to exclude.",
+    "photos": [
+      "https://placedog.net/640/420?id=125"
+    ]
+  },
+  {
+    "sourceAnimalId": "seed-026",
+    "orgId": "seed:furry-friends-rescue",
+    "sourceUrl": "https://www.furryfriendsrescue.org/adopt",
+    "source": "seed",
+    "name": "Sorrel",
+    "species": "dog",
+    "breed": "Hound Mix",
+    "sex": "F",
+    "isSynthetic": true,
+    "ageYears": 4,
+    "weightLbs": 44,
+    "goodWithDogs": "Yes",
+    "houseTrained": "Yes",
+    "description": "A nose with a dog attached. Will follow a scent over a cliff, so keep her leashed.",
+    "photos": [
+      "https://placedog.net/640/420?id=126"
+    ],
+    "status": "Available"
+  },
+  {
+    "sourceAnimalId": "seed-027",
+    "orgId": "seed:contra-costa-animal-services",
+    "sourceUrl": "https://www.contracosta.ca.gov/632/Animal-Services",
+    "source": "seed",
+    "name": "Gus",
+    "species": "dog",
+    "breed": "Pug",
+    "sex": "M",
+    "isSynthetic": true,
+    "ageYears": 7,
+    "weightLbs": 21,
+    "goodWithKids": "Yes",
+    "goodWithCats": "Yes",
+    "specialNeeds": "Yes",
+    "description": "Gus snores at a volume that has to be experienced. Brachycephalic, so no hot-weather exercise.",
+    "photos": [
+      "https://placedog.net/640/420?id=127"
+    ],
+    "status": "Available"
+  }
+]
