@@ -16,6 +16,7 @@ import { normalizeElement } from './normalize.js';
 import { enrichOrganizations } from './enrich.js';
 import { distanceMiles } from './distance.js';
 import { createAnimalsHandler } from './animals.js';
+import { createMeRouter } from './me-routes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SEED_FILE = path.join(__dirname, '..', 'data', 'seed-bay-area.json');
@@ -312,6 +313,10 @@ app.post('/api/search', async (req, res) => {
 });
 
 app.post('/api/animals', createAnimalsHandler({ resolveOrganizations }));
+
+// Accounts + per-user data (saved dogs, journal, to-dos, placement).
+// Demo-grade auth — see auth.js for exactly what that does and doesn't mean.
+app.use('/api', createMeRouter());
 
 app.listen(PORT, () => {
   console.log(`dog-agentic-search server listening on port ${PORT}`);

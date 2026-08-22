@@ -28,7 +28,8 @@ If both OSM services are unreachable, the server falls back to
 From the project root:
 
 ```bash
-npm run install:all   # installs server/ and web/ dependencies
+npm install            # root deps (concurrently) — install:all does NOT cover this
+npm run install:all    # installs server/ and web/ dependencies
 npm run dev            # runs server (8787) and web (5173) concurrently
 ```
 
@@ -36,6 +37,34 @@ Or individually: `npm run dev:server` / `npm run dev:web`.
 
 - Server: http://localhost:8787
 - Web: http://localhost:5173
+
+## App routes (hash-based, web/)
+
+| Route | Screen |
+|---|---|
+| `#/dogs` | Dogs discovery grid (default) — search, filters, cards linking out to each shelter |
+| `#/orgs` | The original organizations table + map view |
+| `#/signup` | "Become a foster" 9-step wizard (creates an account) |
+| `#/login` | Log in (with the bouncing-dog-bubbles easter egg) |
+| `#/dashboard` | Signed-in foster dashboard: current placement, to-dos, journal, saved dogs |
+
+## Accounts & auth — demo-grade, read this
+
+Signup/login are real (scrypt-hashed passwords, opaque session tokens, 7-day
+expiry, stored in `server/data/app-store.json` which is gitignored) but
+**demo-grade**: no email verification, no rate limiting, no password reset, no
+lockout. **Do not enter a password you use anywhere else.** The account routes:
+
+- `POST /api/auth/signup` · `POST /api/auth/login` · `POST /api/auth/logout`
+- `GET /api/me` — profile
+- `GET/PUT /api/me/saved`, `DELETE /api/me/saved/:dogId` — saved-dog snapshots
+- `GET/POST /api/me/updates` — foster journal (photos as small data URLs)
+- `GET/POST/PATCH/DELETE /api/me/todos`
+- `GET/PUT /api/me/placement` — the "currently fostering" card
+
+All take/return JSON; authenticated routes need `Authorization: Bearer <token>`.
+Dogs hearted while signed out live in localStorage and are merged into the
+account on the next login.
 
 ## `/api/search` contract
 

@@ -2,4 +2,7 @@ node_modules/
 dist/
 .env
 server/data/cache.json
+# Contains account password hashes — never commit
+server/data/app-store.json
+server/data/app-store.json.tmp
 .claude/settings.local.json
