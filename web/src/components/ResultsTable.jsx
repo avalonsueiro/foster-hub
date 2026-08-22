@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import EmptyState from './EmptyState.jsx';
 
 const ORG_TYPE_LABELS = {
@@ -47,6 +47,8 @@ function matchesFilter(org, filterText) {
   return haystack.includes(filterText.toLowerCase());
 }
 
+const PAGE_SIZE = 10;
+
 /**
  * Sortable, filterable table of organizations. Row click selects a row
  * (highlighting the matching map marker) — it never triggers an action.
@@ -61,6 +63,7 @@ export default function ResultsTable({
   const [filterText, setFilterText] = useState('');
   const [sortKey, setSortKey] = useState('distanceMiles');
   const [sortDirection, setSortDirection] = useState('asc');
+  const [page, setPage] = useState(1);
 
   const filtered = useMemo(
     () => organizations.filter((org) => matchesFilter(org, filterText)),
@@ -80,13 +83,30 @@ export default function ResultsTable({
     return copy;
   }, [filtered, sortKey, sortDirection]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [organizations]);
+
+  const pageCount = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const paged = useMemo(
+    () => sorted.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [sorted, currentPage]
+  );
+
   function handleSort(key) {
+    setPage(1);
     if (key === sortKey) {
       setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
     } else {
       setSortKey(key);
       setSortDirection('asc');
     }
+  }
+
+  function handleFilterChange(value) {
+    setPage(1);
+    setFilterText(value);
   }
 
   return (
@@ -97,7 +117,7 @@ export default function ResultsTable({
           className="results-table__filter"
           placeholder="Filter by name or city"
           value={filterText}
-          onChange={(event) => setFilterText(event.target.value)}
+          onChange={(event) => handleFilterChange(event.target.value)}
           disabled={isLoading}
         />
         <span className="results-table__count">
@@ -136,7 +156,7 @@ export default function ResultsTable({
           </thead>
           <tbody>
             {isLoading
-              ? Array.from({ length: 8 }).map((_, index) => (
+              ? Array.from({ length: PAGE_SIZE }).map((_, index) => (
                   <tr className="skeleton-row" key={`skeleton-${index}`}>
                     {COLUMNS.map((column) => (
                       <td key={column.key}>
@@ -145,13 +165,13 @@ export default function ResultsTable({
                     ))}
                   </tr>
                 ))
-              : sorted.map((org) => (
+              : paged.map((org) => (
                   <tr
                     key={org.id}
                     className={org.id === selectedId ? 'is-selected' : ''}
                     onClick={() => onSelectRow && onSelectRow(org.id)}
                   >
-                    <td title={org.name || ''} className="truncate">
+                    <td title={org.name || ''} className="results-table__name">
                       {org.name || 'Unnamed organization'}
                       {org.isSynthetic ? <span className="badge badge--synthetic">Demo</span> : null}
                     </td>
@@ -190,7 +210,7 @@ export default function ResultsTable({
                     <td title={org.phone || ''} className="truncate">
                       {org.phone || '—'}
                     </td>
-                    <td title={org.website || ''} className="truncate">
+                    <td title={org.website || ''} className="results-table__website">
                       {org.website ? (
                         <a
                           href={org.website}
@@ -209,6 +229,30 @@ export default function ResultsTable({
           </tbody>
         </table>
       </div>
+
+      {!isLoading && sorted.length > PAGE_SIZE ? (
+        <div className="results-table__pagination">
+          <button
+            type="button"
+            className="button button--secondary"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage <= 1}
+          >
+            ← Previous
+          </button>
+          <span className="results-table__page-indicator">
+            Page {currentPage} of {pageCount}
+          </span>
+          <button
+            type="button"
+            className="button button--secondary"
+            onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+            disabled={currentPage >= pageCount}
+          >
+            Next →
+          </button>
+        </div>
+      ) : null}
 
       {!isLoading && sorted.length === 0 ? (
         <EmptyState

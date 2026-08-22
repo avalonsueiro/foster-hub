@@ -158,7 +158,7 @@ app.post('/api/search', async (req, res) => {
   }
 
   let radiusMiles = Number(body.radiusMiles);
-  if (!Number.isFinite(radiusMiles)) radiusMiles = 30;
+  if (!Number.isFinite(radiusMiles)) radiusMiles = 10;
   radiusMiles = Math.min(100, Math.max(1, radiusMiles));
 
   const kinds = Array.isArray(body.kinds) && body.kinds.length

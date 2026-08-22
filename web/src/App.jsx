@@ -5,6 +5,7 @@ import MapView from './components/MapView.jsx';
 import ResultsTable from './components/ResultsTable.jsx';
 import EmptyState from './components/EmptyState.jsx';
 import { searchOrganizations } from './api.js';
+import logo from './assets/logo.svg';
 
 // Default to shelters and rescues only. Vets and boarding are useful for a
 // coordinator who already knows the animal, but they roughly double the
@@ -13,7 +14,7 @@ const DEFAULT_KINDS = ['animal_shelter'];
 
 export default function App() {
   const [location, setLocation] = useState('');
-  const [radiusMiles, setRadiusMiles] = useState(30);
+  const [radiusMiles, setRadiusMiles] = useState(10);
   const [kinds, setKinds] = useState(DEFAULT_KINDS);
   const [includeSynthetic, setIncludeSynthetic] = useState(false);
 
@@ -79,7 +80,10 @@ export default function App() {
     <div className="app">
       <header className="app__header">
         <div className="app__title">
-          <h1>🐾 Foster Hub</h1>
+          <div className="app__title-row">
+            <img src={logo} alt="" className="app__logo" />
+            <h1>Foster Fetch</h1>
+          </div>
           <p className="app__subtitle">
             Find animal shelters, vets, and boarding nearby.
           </p>
