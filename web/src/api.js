@@ -1,4 +1,4 @@
-const DEFAULT_ERROR = 'Something went wrong talking to the search service.';
+const DEFAULT_ERROR = 'Something went wrong. Please try again.';
 
 /**
  * Calls POST /api/search with the given params and returns the parsed JSON.
@@ -28,10 +28,8 @@ export async function searchOrganizations({
         includeSynthetic,
       }),
     });
-  } catch (networkError) {
-    throw new Error(
-      `Could not reach the search service. Check that the backend is running and try again. (${networkError.message})`
-    );
+  } catch {
+    throw new Error('Could not connect. Please check your internet connection and try again.');
   }
 
   let body = null;
@@ -45,9 +43,7 @@ export async function searchOrganizations({
   }
 
   if (!response.ok) {
-    const message =
-      (body && (body.error || body.message)) ||
-      `Search failed with status ${response.status}.`;
+    const message = (body && (body.error || body.message)) || 'Search failed. Please try again.';
     throw new Error(message);
   }
 

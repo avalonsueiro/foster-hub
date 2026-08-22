@@ -1,30 +1,18 @@
 import { useMemo, useState } from 'react';
 import EmptyState from './EmptyState.jsx';
 
-const KIND_LABELS = {
-  animal_shelter: 'Animal shelter',
-  veterinary: 'Veterinary',
-  animal_boarding: 'Animal boarding',
-};
-
 const ORG_TYPE_LABELS = {
-  municipal_shelter: 'Municipal shelter',
-  private_shelter: 'Private shelter',
-  foster_based_rescue: 'Foster-based rescue',
-  veterinary: 'Veterinary',
-  boarding_facility: 'Boarding facility',
-  unknown: 'Unclassified',
-};
-
-const SOURCE_LABELS = {
-  overpass: 'OpenStreetMap',
-  seed: 'Seed data',
+  municipal_shelter: 'Shelter',
+  private_shelter: 'Shelter',
+  foster_based_rescue: 'Foster rescue',
+  veterinary: 'Vet',
+  boarding_facility: 'Boarding',
+  unknown: 'Other',
 };
 
 const COLUMNS = [
   { key: 'name', label: 'Name', align: 'left' },
-  { key: 'kind', label: 'Type', align: 'left' },
-  { key: 'orgType', label: 'Org type', align: 'left' },
+  { key: 'orgType', label: 'Type', align: 'left' },
   { key: 'distanceMiles', label: 'Distance', align: 'right' },
   { key: 'city', label: 'City', align: 'left' },
   { key: 'phone', label: 'Phone', align: 'left' },
@@ -35,8 +23,6 @@ function getSortValue(org, key) {
   switch (key) {
     case 'name':
       return (org.name || '').toLowerCase();
-    case 'kind':
-      return KIND_LABELS[org.kind] || org.kind || '';
     case 'orgType':
       return ORG_TYPE_LABELS[org.orgType] || org.orgType || '';
     case 'distanceMiles':
@@ -143,7 +129,6 @@ export default function ResultsTable({
                   </span>
                 </th>
               ))}
-              <th>Source</th>
             </tr>
           </thead>
           <tbody>
@@ -155,9 +140,6 @@ export default function ResultsTable({
                         <span className="skeleton-block" />
                       </td>
                     ))}
-                    <td>
-                      <span className="skeleton-block" />
-                    </td>
                   </tr>
                 ))
               : sorted.map((org) => (
@@ -168,9 +150,8 @@ export default function ResultsTable({
                   >
                     <td title={org.name || ''} className="truncate">
                       {org.name || 'Unnamed organization'}
-                      {org.isSynthetic ? <span className="badge badge--synthetic">Synthetic</span> : null}
+                      {org.isSynthetic ? <span className="badge badge--synthetic">Demo</span> : null}
                     </td>
-                    <td>{KIND_LABELS[org.kind] || org.kind || 'Unknown'}</td>
                     <td title={ORG_TYPE_LABELS[org.orgType] || org.orgType || ''} className="truncate">
                       {ORG_TYPE_LABELS[org.orgType] || org.orgType || '—'}
                     </td>
@@ -197,11 +178,6 @@ export default function ResultsTable({
                         '—'
                       )}
                     </td>
-                    <td>
-                      <span className="badge badge--source" title={org.source || 'unknown source'}>
-                        {SOURCE_LABELS[org.source] || org.source || 'Unknown'}
-                      </span>
-                    </td>
                   </tr>
                 ))}
           </tbody>
@@ -221,9 +197,9 @@ export default function ResultsTable({
           description={
             hasSearched
               ? organizations.length === 0
-                ? 'Try a larger radius, a different location, or enable more organization types above.'
-                : 'Clear the filter box to see all results again.'
-              : 'Enter a location above and press search to see nearby shelters, vets, and boarding facilities.'
+                ? 'Try a bigger radius, a different location, or check more of the boxes above.'
+                : 'Clear the search box above to see all results again.'
+              : 'Type a location above and hit search to see what\'s nearby.'
           }
         />
       ) : null}

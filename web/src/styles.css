@@ -50,6 +50,10 @@ body,
   height: 100%;
 }
 
+html {
+  font-size: 19px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -77,15 +81,16 @@ body {
 }
 
 .app__title h1 {
-  margin: 0 0 4px;
-  font-size: 1.5rem;
-  font-weight: 700;
+  margin: 0 0 6px;
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .app__subtitle {
   margin: 0;
   color: var(--color-text-muted);
-  font-size: 0.925rem;
+  font-size: 1.15rem;
 }
 
 /* Search bar */
@@ -109,7 +114,7 @@ body {
 
 .search-bar__field label,
 .search-bar__field legend {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--color-text-muted);
   padding: 0;
@@ -129,12 +134,12 @@ body {
 
 input[type='text'],
 input[type='search'] {
-  padding: 9px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-bg);
   color: var(--color-text);
-  font-size: 0.925rem;
+  font-size: 1.05rem;
 }
 
 input[type='text']:focus,
@@ -157,10 +162,15 @@ input[type='range'] {
 .checkbox-label {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.875rem;
+  gap: 8px;
+  font-size: 1rem;
   color: var(--color-text);
   white-space: nowrap;
+}
+
+.checkbox-label input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
 }
 
 .search-bar__synthetic {
@@ -179,21 +189,21 @@ input[type='range'] {
 
 .search-bar__geolocate {
   flex: 0 0 auto;
-  padding: 9px 14px;
-  font-size: 0.85rem;
+  padding: 12px 16px;
+  font-size: 0.95rem;
 }
 
 .search-bar__geo-error {
   margin: 4px 0 0;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--color-destructive);
 }
 
 .button {
   border: none;
   border-radius: var(--radius-sm);
-  padding: 10px 18px;
-  font-size: 0.925rem;
+  padding: 12px 20px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
@@ -227,8 +237,8 @@ input[type='range'] {
 
 .banner {
   border-radius: var(--radius-md);
-  padding: 12px 16px;
-  font-size: 0.9rem;
+  padding: 14px 18px;
+  font-size: 1.05rem;
 }
 
 .banner p {
@@ -277,20 +287,20 @@ input[type='range'] {
 }
 
 .stat-tile__label {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   color: var(--color-text-muted);
   font-weight: 600;
 }
 
 .stat-tile__value {
-  font-size: 1.35rem;
+  font-size: 1.7rem;
   font-weight: 700;
   text-align: right;
 }
 
 .stat-tile__value--text {
   text-align: left;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -385,7 +395,7 @@ input[type='range'] {
 }
 
 .results-table__count {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: var(--color-text-muted);
   white-space: nowrap;
 }
@@ -398,7 +408,7 @@ input[type='range'] {
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.875rem;
+  font-size: 1.02rem;
 }
 
 thead th {
@@ -406,7 +416,7 @@ thead th {
   top: 0;
   background: var(--color-surface);
   text-align: left;
-  padding: 10px 14px;
+  padding: 12px 14px;
   font-weight: 600;
   color: var(--color-text-muted);
   border-bottom: 1px solid var(--color-border);
@@ -424,7 +434,7 @@ th.align-right {
 }
 
 tbody td {
-  padding: 10px 14px;
+  padding: 13px 14px;
   border-bottom: 1px solid var(--color-border);
   vertical-align: middle;
 }
@@ -464,9 +474,9 @@ tbody a:hover {
 
 .badge {
   display: inline-block;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 2px 8px;
+  padding: 3px 9px;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -477,13 +487,6 @@ tbody a:hover {
   margin-left: 8px;
   background: color-mix(in srgb, var(--color-warning) 25%, transparent);
   color: var(--color-warning);
-}
-
-.badge--source {
-  background: color-mix(in srgb, var(--color-text-muted) 15%, transparent);
-  color: var(--color-text-muted);
-  text-transform: none;
-  font-weight: 600;
 }
 
 /* Skeletons */
@@ -530,21 +533,21 @@ tbody a:hover {
 }
 
 .empty-state__glyph {
-  font-size: 2.5rem;
+  font-size: 3.2rem;
   line-height: 1;
 }
 
 .empty-state__title {
-  font-size: 1.05rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
 }
 
 .empty-state__description {
-  max-width: 420px;
+  max-width: 460px;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
 
 /* Map popup (Leaflet renders these outside the React tree's styling scope,

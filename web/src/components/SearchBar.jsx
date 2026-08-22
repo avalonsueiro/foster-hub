@@ -130,7 +130,7 @@ export default function SearchBar({
           checked={includeSynthetic}
           onChange={(event) => onIncludeSyntheticChange(event.target.checked)}
         />
-        Include synthetic foster homes
+        Show demo foster homes (not real)
       </label>
 
       <button type="submit" className="button button--primary" disabled={isLoading}>

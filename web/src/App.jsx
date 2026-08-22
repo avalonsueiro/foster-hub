@@ -32,7 +32,7 @@ export default function App() {
 
     if (!searchLocation && !hasCoords) {
       setIsLoading(false);
-      setError('Enter a location to search — a city, zip code, or address.');
+      setError('Please type a city, zip code, or address to search.');
       setResult(null);
       return;
     }
@@ -76,9 +76,9 @@ export default function App() {
     <div className="app">
       <header className="app__header">
         <div className="app__title">
-          <h1>Regional shelter &amp; foster search</h1>
+          <h1>🐾 Foster Hub</h1>
           <p className="app__subtitle">
-            Find animal shelters, vets, and boarding facilities near a location.
+            Find animal shelters, vets, and boarding nearby.
           </p>
         </div>
         <SearchBar
@@ -121,8 +121,8 @@ export default function App() {
       {showInitialEmptyState ? (
         <EmptyState
           glyph="🐾"
-          title="Search for a location to get started"
-          description="Type a city, zip code, or address above, choose a radius, and press search. Results include animal shelters, vets, and boarding facilities nearby."
+          title="Where should we look?"
+          description="Type in a city, zip code, or address above, or use your current location, and we'll show shelters, vets, and boarding nearby."
           actionLabel="Try San Francisco, CA"
           onAction={handleQuickFill}
         />
