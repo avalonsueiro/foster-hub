@@ -12,30 +12,30 @@ const ORG_TYPE_LABELS = {
 
 const COLUMNS = [
   { key: 'name', label: 'Name', align: 'left' },
-  { key: 'orgType', label: 'Type', align: 'left' },
-  { key: 'distanceMiles', label: 'Distance', align: 'right' },
-  { key: 'transfer', label: 'Transfer right', align: 'left' },
-  { key: 'city', label: 'City', align: 'left' },
-  { key: 'phone', label: 'Phone', align: 'left' },
   { key: 'website', label: 'Website', align: 'left' },
+  { key: 'orgType', label: 'Type', align: 'left' },
 ];
+
+function googleMapsUrl(org) {
+  if (typeof org.lat === 'number' && typeof org.lon === 'number') {
+    return `https://www.google.com/maps/search/?api=1&query=${org.lat},${org.lon}`;
+  }
+  if (org.address?.full) {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(org.address.full)}`;
+  }
+  return null;
+}
 
 function getSortValue(org, key) {
   switch (key) {
     case 'name':
       return (org.name || '').toLowerCase();
+    case 'website':
+      return org.website || '';
     case 'orgType':
       return ORG_TYPE_LABELS[org.orgType] || org.orgType || '';
     case 'distanceMiles':
       return typeof org.distanceMiles === 'number' ? org.distanceMiles : Infinity;
-    case 'transfer':
-      return org.haydenTransferRight === true ? 0 : org.haydenTransferRight === false ? 1 : 2;
-    case 'city':
-      return (org.address?.city || '').toLowerCase();
-    case 'phone':
-      return org.phone || '';
-    case 'website':
-      return org.website || '';
     default:
       return '';
   }
@@ -152,6 +152,7 @@ export default function ResultsTable({
                   </span>
                 </th>
               ))}
+              <th>Map</th>
             </tr>
           </thead>
           <tbody>
@@ -163,69 +164,62 @@ export default function ResultsTable({
                         <span className="skeleton-block" />
                       </td>
                     ))}
+                    <td>
+                      <span className="skeleton-block" />
+                    </td>
                   </tr>
                 ))
-              : paged.map((org) => (
-                  <tr
-                    key={org.id}
-                    className={org.id === selectedId ? 'is-selected' : ''}
-                    onClick={() => onSelectRow && onSelectRow(org.id)}
-                  >
-                    <td title={org.name || ''} className="results-table__name">
-                      {org.name || 'Unnamed organization'}
-                      {org.isSynthetic ? <span className="badge badge--synthetic">Demo</span> : null}
-                    </td>
-                    <td title={ORG_TYPE_LABELS[org.orgType] || org.orgType || ''} className="truncate">
-                      {ORG_TYPE_LABELS[org.orgType] || org.orgType || '—'}
-                    </td>
-                    <td className="align-right">
-                      {typeof org.distanceMiles === 'number' ? `${org.distanceMiles.toFixed(1)} mi` : '—'}
-                      {org.locationPrecision === 'city' ? (
-                        <span className="precision-note" title="Registered city only — not a street address">
-                          ~city
-                        </span>
-                      ) : null}
-                    </td>
-                    <td>
-                      {org.haydenTransferRight === true ? (
-                        <a
-                          className="badge badge--transfer"
-                          href={org.complianceSource || '#'}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          onClick={(e) => e.stopPropagation()}
-                          title={`501(c)(3), EIN ${org.ein}. Under CA Food & Ag Code 31108/31752 a shelter must release a stray to a qualified 501(c)(3) rescue that requests it before euthanasia. Verify before relying.`}
-                        >
-                          501(c)(3)
-                        </a>
-                      ) : (
-                        <span className="muted" title="No IRS record matched — status unverified">
-                          unverified
-                        </span>
-                      )}
-                    </td>
-                    <td title={org.address?.city || ''} className="truncate">
-                      {org.address?.city || '—'}
-                    </td>
-                    <td title={org.phone || ''} className="truncate">
-                      {org.phone || '—'}
-                    </td>
-                    <td title={org.website || ''} className="results-table__website">
-                      {org.website ? (
-                        <a
-                          href={org.website}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(event) => event.stopPropagation()}
-                        >
-                          {org.website.replace(/^https?:\/\//, '')}
-                        </a>
-                      ) : (
-                        '—'
-                      )}
-                    </td>
-                  </tr>
-                ))}
+              : paged.map((org) => {
+                  const mapsUrl = googleMapsUrl(org);
+                  return (
+                    <tr
+                      key={org.id}
+                      className={org.id === selectedId ? 'is-selected' : ''}
+                      onClick={() => onSelectRow && onSelectRow(org.id)}
+                    >
+                      <td title={org.name || ''} className="results-table__name">
+                        {org.name || 'Unnamed organization'}
+                        {org.isSynthetic ? <span className="badge badge--synthetic">Demo</span> : null}
+                      </td>
+                      <td title={org.website || ''} className="results-table__website">
+                        {org.website ? (
+                          <a
+                            href={org.website}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            {org.website.replace(/^https?:\/\//, '')}
+                          </a>
+                        ) : (
+                          '—'
+                        )}
+                      </td>
+                      <td title={ORG_TYPE_LABELS[org.orgType] || org.orgType || ''} className="truncate">
+                        {ORG_TYPE_LABELS[org.orgType] || org.orgType || '—'}
+                      </td>
+                      <td>
+                        {mapsUrl ? (
+                          <a
+                            href={mapsUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(event) => event.stopPropagation()}
+                            title={
+                              org.locationPrecision === 'city'
+                                ? 'Registered city only — not a street address'
+                                : 'Open in Google Maps'
+                            }
+                          >
+                            📍 Map{org.locationPrecision === 'city' ? ' (~city)' : ''}
+                          </a>
+                        ) : (
+                          '—'
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </table>
       </div>
