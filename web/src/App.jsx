@@ -20,14 +20,17 @@ export default function App() {
   const [result, setResult] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
 
-  async function runSearch(locationOverride) {
-    const searchLocation = (locationOverride ?? location).trim();
+  async function runSearch(options = {}) {
+    const override = typeof options === 'string' ? { location: options } : options;
+    const searchLocation = (override.location ?? location).trim();
+    const hasCoords = override.lat != null && override.lon != null;
+
     setHasSearched(true);
     setError(null);
     setIsLoading(true);
     setSelectedId(null);
 
-    if (!searchLocation) {
+    if (!searchLocation && !hasCoords) {
       setIsLoading(false);
       setError('Enter a location to search — a city, zip code, or address.');
       setResult(null);
@@ -37,6 +40,8 @@ export default function App() {
     try {
       const response = await searchOrganizations({
         location: searchLocation,
+        lat: hasCoords ? override.lat : undefined,
+        lon: hasCoords ? override.lon : undefined,
         radiusMiles,
         kinds,
         includeSynthetic,
@@ -53,6 +58,11 @@ export default function App() {
   function handleQuickFill() {
     setLocation('San Francisco, CA');
     runSearch('San Francisco, CA');
+  }
+
+  function handleUseCurrentLocation(lat, lon) {
+    setLocation('Current location');
+    runSearch({ location: 'Current location', lat, lon });
   }
 
   const organizations = result?.organizations || [];
@@ -81,6 +91,7 @@ export default function App() {
           onKindsChange={setKinds}
           onIncludeSyntheticChange={setIncludeSynthetic}
           onSubmit={runSearch}
+          onUseCurrentLocation={handleUseCurrentLocation}
           isLoading={isLoading}
         />
       </header>

@@ -21,14 +21,44 @@ export default function SearchBar({
   onKindsChange,
   onIncludeSyntheticChange,
   onSubmit,
+  onUseCurrentLocation,
   isLoading,
 }) {
   const [draftLocation, setDraftLocation] = useState(location);
+  const [isLocating, setIsLocating] = useState(false);
+  const [geoError, setGeoError] = useState(null);
 
   function handleSubmit(event) {
     event.preventDefault();
     onLocationChange(draftLocation);
     onSubmit(draftLocation);
+  }
+
+  function handleUseCurrentLocation() {
+    if (!navigator.geolocation) {
+      setGeoError('Geolocation is not supported by this browser.');
+      return;
+    }
+
+    setGeoError(null);
+    setIsLocating(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setIsLocating(false);
+        setDraftLocation('Current location');
+        onUseCurrentLocation(position.coords.latitude, position.coords.longitude);
+      },
+      (err) => {
+        setIsLocating(false);
+        setGeoError(
+          err.code === err.PERMISSION_DENIED
+            ? 'Location access denied. Enable it in your browser settings, or type a location instead.'
+            : 'Could not determine your location. Try typing a location instead.'
+        );
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 5 * 60 * 1000 }
+    );
   }
 
   function toggleKind(value) {
@@ -43,14 +73,26 @@ export default function SearchBar({
     <form className="search-bar" onSubmit={handleSubmit}>
       <div className="search-bar__field search-bar__field--location">
         <label htmlFor="location-input">Location</label>
-        <input
-          id="location-input"
-          type="text"
-          placeholder="City, zip, or address"
-          value={draftLocation}
-          onChange={(event) => setDraftLocation(event.target.value)}
-          autoComplete="off"
-        />
+        <div className="search-bar__location-row">
+          <input
+            id="location-input"
+            type="text"
+            placeholder="City, zip, or address"
+            value={draftLocation}
+            onChange={(event) => setDraftLocation(event.target.value)}
+            autoComplete="off"
+          />
+          <button
+            type="button"
+            className="button button--secondary search-bar__geolocate"
+            onClick={handleUseCurrentLocation}
+            disabled={isLocating}
+            title="Use my current location"
+          >
+            {isLocating ? 'Locating…' : '📍 Use my location'}
+          </button>
+        </div>
+        {geoError ? <p className="search-bar__geo-error">{geoError}</p> : null}
       </div>
 
       <div className="search-bar__field search-bar__field--radius">

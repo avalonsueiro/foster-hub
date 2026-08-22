@@ -167,6 +167,28 @@ input[type='range'] {
   flex: 0 0 auto;
 }
 
+.search-bar__location-row {
+  display: flex;
+  gap: 8px;
+}
+
+.search-bar__location-row input[type='text'] {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-bar__geolocate {
+  flex: 0 0 auto;
+  padding: 9px 14px;
+  font-size: 0.85rem;
+}
+
+.search-bar__geo-error {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--color-destructive);
+}
+
 .button {
   border: none;
   border-radius: var(--radius-sm);

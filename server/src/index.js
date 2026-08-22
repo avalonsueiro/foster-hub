@@ -90,8 +90,12 @@ app.post('/api/search', async (req, res) => {
   const body = req.body || {};
 
   const location = typeof body.location === 'string' ? body.location.trim() : '';
-  if (!location) {
-    return res.status(400).json({ error: 'location is required' });
+  const rawLat = Number(body.lat);
+  const rawLon = Number(body.lon);
+  const hasCoords = Number.isFinite(rawLat) && Number.isFinite(rawLon);
+
+  if (!location && !hasCoords) {
+    return res.status(400).json({ error: 'location or lat/lon is required' });
   }
 
   let radiusMiles = Number(body.radiusMiles);
@@ -107,12 +111,17 @@ app.post('/api/search', async (req, res) => {
 
   let center;
   let resolvedName;
-  try {
-    const geo = await geocodeLocation(location);
-    center = { lat: geo.lat, lon: geo.lon };
-    resolvedName = geo.displayName;
-  } catch (err) {
-    return res.status(422).json({ error: `Could not resolve location: ${err.message}` });
+  if (hasCoords) {
+    center = { lat: rawLat, lon: rawLon };
+    resolvedName = location || 'Current location';
+  } else {
+    try {
+      const geo = await geocodeLocation(location);
+      center = { lat: geo.lat, lon: geo.lon };
+      resolvedName = geo.displayName;
+    } catch (err) {
+      return res.status(422).json({ error: `Could not resolve location: ${err.message}` });
+    }
   }
 
   let organizations = [];

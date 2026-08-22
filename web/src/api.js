@@ -6,6 +6,8 @@ const DEFAULT_ERROR = 'Something went wrong talking to the search service.';
  */
 export async function searchOrganizations({
   location,
+  lat,
+  lon,
   radiusMiles,
   kinds,
   enrich,
@@ -18,6 +20,8 @@ export async function searchOrganizations({
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         location,
+        lat,
+        lon,
         radiusMiles,
         kinds,
         enrich,
