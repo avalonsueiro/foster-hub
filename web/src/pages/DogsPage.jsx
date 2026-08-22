@@ -12,6 +12,7 @@ import FFHeader, { Icon, ICONS, PawIcon } from '../components/ff/FFHeader.jsx';
 import DogCard, { breedLine, statLine } from '../components/ff/DogCard.jsx';
 import { searchAnimals, saveDog, unsaveDog, getSaved } from '../api.js';
 import { useAuth } from '../App.jsx';
+import { US_CITIES } from '../data/us-cities.js';
 
 const DEFAULT_LOCATION = 'San Francisco, CA';
 const DEFAULT_RADIUS = 25;
@@ -42,6 +43,32 @@ function snapshotOf(dog) {
   };
 }
 
+const MAX_SUGGESTIONS = 8;
+
+/**
+ * City suggestions for the location input. Prefix-of-any-word matching over
+ * the static top-US-cities list ("san" hits San Antonio and Santa Ana; "ant"
+ * hits neither) — list is roughly population-ordered, so the biggest match
+ * surfaces first. Purely client-side; typing an address that isn't in the
+ * list still works, it just gets no suggestions.
+ */
+function citySuggestions(query) {
+  const q = query.trim().toLowerCase();
+  if (q.length < 2) return [];
+  const out = [];
+  for (const city of US_CITIES) {
+    const lower = city.toLowerCase();
+    if (lower.startsWith(q) || lower.split(/[\s,]+/).some((w) => w.startsWith(q))) {
+      out.push(city);
+      if (out.length === MAX_SUGGESTIONS) break;
+    }
+  }
+  // Hide the dropdown once the field exactly matches a suggestion — nothing
+  // left to suggest, and it would cover the radius slider.
+  if (out.length === 1 && out[0].toLowerCase() === q) return [];
+  return out;
+}
+
 function Chips({ defs, isOn, onToggle }) {
   return (
     <div className="ff-chips">
@@ -66,6 +93,8 @@ export default function DogsPage() {
   // Search
   const [location, setLocation] = useState(DEFAULT_LOCATION);
   const [radius, setRadius] = useState(DEFAULT_RADIUS);
+  const [suggestOpen, setSuggestOpen] = useState(false);
+  const [suggestIndex, setSuggestIndex] = useState(-1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [result, setResult] = useState({ animals: [], unsupportedOrgs: [], warnings: [] });
@@ -188,6 +217,32 @@ export default function DogsPage() {
   const unsupported = result.unsupportedOrgs;
   const shownPills = unsupported.slice(0, MAX_UNSUPPORTED_PILLS);
 
+  const suggestions = suggestOpen ? citySuggestions(location) : [];
+
+  function pickSuggestion(city) {
+    setLocation(city);
+    setSuggestOpen(false);
+    setSuggestIndex(-1);
+    runSearch(city, radius);
+  }
+
+  function handleLocationKeys(e) {
+    if (!suggestions.length) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSuggestIndex((i) => (i + 1) % suggestions.length);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSuggestIndex((i) => (i <= 0 ? suggestions.length - 1 : i - 1));
+    } else if (e.key === 'Enter' && suggestIndex >= 0) {
+      e.preventDefault();
+      pickSuggestion(suggestions[suggestIndex]);
+    } else if (e.key === 'Escape') {
+      setSuggestOpen(false);
+      setSuggestIndex(-1);
+    }
+  }
+
   return (
     <div className="ff-page">
       <FFHeader />
@@ -199,14 +254,37 @@ export default function DogsPage() {
           className="ff-search-card"
           onSubmit={(e) => { e.preventDefault(); runSearch(location.trim() || DEFAULT_LOCATION, radius); }}
         >
-          <div className="ff-field ff-field--icon">
+          <div className="ff-field ff-field--icon" style={{ position: 'relative' }}>
             <label htmlFor="ff-loc">Location</label>
             <Icon d={ICONS.mapPin} size={18} stroke="var(--ff-text-soft)" />
             <input
               id="ff-loc" className="ff-input ff-input--icon" type="text"
               placeholder="City, zip, or address" value={location}
-              onChange={(e) => setLocation(e.target.value)} autoComplete="off"
+              onChange={(e) => { setLocation(e.target.value); setSuggestOpen(true); setSuggestIndex(-1); }}
+              onFocus={() => setSuggestOpen(true)}
+              onBlur={() => setTimeout(() => setSuggestOpen(false), 120)} // let a click on a suggestion land first
+              onKeyDown={handleLocationKeys}
+              autoComplete="off"
+              role="combobox"
+              aria-expanded={suggestions.length > 0}
+              aria-autocomplete="list"
             />
+            {suggestions.length > 0 ? (
+              <div className="ff-suggest" role="listbox">
+                {suggestions.map((city, i) => (
+                  <button
+                    key={city} type="button" role="option"
+                    aria-selected={i === suggestIndex}
+                    className={i === suggestIndex ? 'active' : ''}
+                    // mousedown, not click — it fires before the input's blur
+                    onMouseDown={(e) => { e.preventDefault(); pickSuggestion(city); }}
+                  >
+                    <Icon d={ICONS.mapPin} size={14} stroke="var(--ff-accent-400)" />
+                    {city}
+                  </button>
+                ))}
+              </div>
+            ) : null}
           </div>
           <div className="ff-field">
             <label htmlFor="ff-radius">Distance — within {radius} miles</label>

@@ -48,7 +48,7 @@ function resizeToDataUrl(file) {
   });
 }
 
-function PhotoSlot({ photo, onFile }) {
+function PhotoSlot({ photo, onFile, onClear }) {
   const [drag, setDrag] = useState(false);
   const inputRef = useRef(null);
 
@@ -69,9 +69,23 @@ function PhotoSlot({ photo, onFile }) {
       role="button"
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter') inputRef.current?.click(); }}
-      aria-label="Add a photo"
+      aria-label={photo ? 'Replace this photo' : 'Add a photo'}
     >
       {photo ? <img src={photo} alt="Foster dog" /> : <span>Drop a photo<br />or click to add</span>}
+      {photo ? (
+        <button
+          type="button"
+          className="ff-photo-x"
+          aria-label="Remove this photo"
+          title="Remove this photo"
+          onClick={(e) => { e.stopPropagation(); onClear(); }}
+        >
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            strokeWidth="2.75" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+          </svg>
+        </button>
+      ) : null}
       <input
         ref={inputRef} type="file" accept="image/*" style={{ display: 'none' }}
         onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); e.target.value = ''; }}
@@ -257,7 +271,12 @@ export default function DashboardPage() {
 
           <div className="ff-photo-slots">
             {photos.map((photo, i) => (
-              <PhotoSlot key={i} photo={photo} onFile={(file) => handlePhoto(i, file)} />
+              <PhotoSlot
+                key={i}
+                photo={photo}
+                onFile={(file) => handlePhoto(i, file)}
+                onClear={() => setPhotos((prev) => prev.map((p, j) => (j === i ? null : p)))}
+              />
             ))}
           </div>
 
