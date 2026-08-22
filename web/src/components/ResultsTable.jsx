@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import EmptyState from './EmptyState.jsx';
 
 const ORG_TYPE_LABELS = {
@@ -12,30 +12,30 @@ const ORG_TYPE_LABELS = {
 
 const COLUMNS = [
   { key: 'name', label: 'Name', align: 'left' },
-  { key: 'orgType', label: 'Type', align: 'left' },
-  { key: 'distanceMiles', label: 'Distance', align: 'right' },
-  { key: 'transfer', label: 'Transfer right', align: 'left' },
-  { key: 'city', label: 'City', align: 'left' },
-  { key: 'phone', label: 'Phone', align: 'left' },
   { key: 'website', label: 'Website', align: 'left' },
+  { key: 'orgType', label: 'Type', align: 'left' },
 ];
+
+function googleMapsUrl(org) {
+  if (typeof org.lat === 'number' && typeof org.lon === 'number') {
+    return `https://www.google.com/maps/search/?api=1&query=${org.lat},${org.lon}`;
+  }
+  if (org.address?.full) {
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(org.address.full)}`;
+  }
+  return null;
+}
 
 function getSortValue(org, key) {
   switch (key) {
     case 'name':
       return (org.name || '').toLowerCase();
+    case 'website':
+      return org.website || '';
     case 'orgType':
       return ORG_TYPE_LABELS[org.orgType] || org.orgType || '';
     case 'distanceMiles':
       return typeof org.distanceMiles === 'number' ? org.distanceMiles : Infinity;
-    case 'transfer':
-      return org.haydenTransferRight === true ? 0 : org.haydenTransferRight === false ? 1 : 2;
-    case 'city':
-      return (org.address?.city || '').toLowerCase();
-    case 'phone':
-      return org.phone || '';
-    case 'website':
-      return org.website || '';
     default:
       return '';
   }
@@ -46,6 +46,8 @@ function matchesFilter(org, filterText) {
   const haystack = `${org.name || ''} ${org.address?.city || ''}`.toLowerCase();
   return haystack.includes(filterText.toLowerCase());
 }
+
+const PAGE_SIZE = 10;
 
 /**
  * Sortable, filterable table of organizations. Row click selects a row
@@ -61,6 +63,7 @@ export default function ResultsTable({
   const [filterText, setFilterText] = useState('');
   const [sortKey, setSortKey] = useState('distanceMiles');
   const [sortDirection, setSortDirection] = useState('asc');
+  const [page, setPage] = useState(1);
 
   const filtered = useMemo(
     () => organizations.filter((org) => matchesFilter(org, filterText)),
@@ -80,13 +83,30 @@ export default function ResultsTable({
     return copy;
   }, [filtered, sortKey, sortDirection]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [organizations]);
+
+  const pageCount = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const paged = useMemo(
+    () => sorted.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE),
+    [sorted, currentPage]
+  );
+
   function handleSort(key) {
+    setPage(1);
     if (key === sortKey) {
       setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
     } else {
       setSortKey(key);
       setSortDirection('asc');
     }
+  }
+
+  function handleFilterChange(value) {
+    setPage(1);
+    setFilterText(value);
   }
 
   return (
@@ -97,7 +117,7 @@ export default function ResultsTable({
           className="results-table__filter"
           placeholder="Filter by name or city"
           value={filterText}
-          onChange={(event) => setFilterText(event.target.value)}
+          onChange={(event) => handleFilterChange(event.target.value)}
           disabled={isLoading}
         />
         <span className="results-table__count">
@@ -132,83 +152,101 @@ export default function ResultsTable({
                   </span>
                 </th>
               ))}
+              <th>Map</th>
             </tr>
           </thead>
           <tbody>
             {isLoading
-              ? Array.from({ length: 8 }).map((_, index) => (
+              ? Array.from({ length: PAGE_SIZE }).map((_, index) => (
                   <tr className="skeleton-row" key={`skeleton-${index}`}>
                     {COLUMNS.map((column) => (
                       <td key={column.key}>
                         <span className="skeleton-block" />
                       </td>
                     ))}
+                    <td>
+                      <span className="skeleton-block" />
+                    </td>
                   </tr>
                 ))
-              : sorted.map((org) => (
-                  <tr
-                    key={org.id}
-                    className={org.id === selectedId ? 'is-selected' : ''}
-                    onClick={() => onSelectRow && onSelectRow(org.id)}
-                  >
-                    <td title={org.name || ''} className="truncate">
-                      {org.name || 'Unnamed organization'}
-                      {org.isSynthetic ? <span className="badge badge--synthetic">Demo</span> : null}
-                    </td>
-                    <td title={ORG_TYPE_LABELS[org.orgType] || org.orgType || ''} className="truncate">
-                      {ORG_TYPE_LABELS[org.orgType] || org.orgType || '—'}
-                    </td>
-                    <td className="align-right">
-                      {typeof org.distanceMiles === 'number' ? `${org.distanceMiles.toFixed(1)} mi` : '—'}
-                      {org.locationPrecision === 'city' ? (
-                        <span className="precision-note" title="Registered city only — not a street address">
-                          ~city
-                        </span>
-                      ) : null}
-                    </td>
-                    <td>
-                      {org.haydenTransferRight === true ? (
-                        <a
-                          className="badge badge--transfer"
-                          href={org.complianceSource || '#'}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          onClick={(e) => e.stopPropagation()}
-                          title={`501(c)(3), EIN ${org.ein}. Under CA Food & Ag Code 31108/31752 a shelter must release a stray to a qualified 501(c)(3) rescue that requests it before euthanasia. Verify before relying.`}
-                        >
-                          501(c)(3)
-                        </a>
-                      ) : (
-                        <span className="muted" title="No IRS record matched — status unverified">
-                          unverified
-                        </span>
-                      )}
-                    </td>
-                    <td title={org.address?.city || ''} className="truncate">
-                      {org.address?.city || '—'}
-                    </td>
-                    <td title={org.phone || ''} className="truncate">
-                      {org.phone || '—'}
-                    </td>
-                    <td title={org.website || ''} className="truncate">
-                      {org.website ? (
-                        <a
-                          href={org.website}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(event) => event.stopPropagation()}
-                        >
-                          {org.website.replace(/^https?:\/\//, '')}
-                        </a>
-                      ) : (
-                        '—'
-                      )}
-                    </td>
-                  </tr>
-                ))}
+              : paged.map((org) => {
+                  const mapsUrl = googleMapsUrl(org);
+                  return (
+                    <tr
+                      key={org.id}
+                      className={org.id === selectedId ? 'is-selected' : ''}
+                      onClick={() => onSelectRow && onSelectRow(org.id)}
+                    >
+                      <td title={org.name || ''} className="results-table__name">
+                        {org.name || 'Unnamed organization'}
+                        {org.isSynthetic ? <span className="badge badge--synthetic">Demo</span> : null}
+                      </td>
+                      <td title={org.website || ''} className="results-table__website">
+                        {org.website ? (
+                          <a
+                            href={org.website}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(event) => event.stopPropagation()}
+                          >
+                            {org.website.replace(/^https?:\/\//, '')}
+                          </a>
+                        ) : (
+                          '—'
+                        )}
+                      </td>
+                      <td title={ORG_TYPE_LABELS[org.orgType] || org.orgType || ''} className="truncate">
+                        {ORG_TYPE_LABELS[org.orgType] || org.orgType || '—'}
+                      </td>
+                      <td>
+                        {mapsUrl ? (
+                          <a
+                            href={mapsUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(event) => event.stopPropagation()}
+                            title={
+                              org.locationPrecision === 'city'
+                                ? 'Registered city only — not a street address'
+                                : 'Open in Google Maps'
+                            }
+                          >
+                            📍 Map{org.locationPrecision === 'city' ? ' (~city)' : ''}
+                          </a>
+                        ) : (
+                          '—'
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </table>
       </div>
+
+      {!isLoading && sorted.length > PAGE_SIZE ? (
+        <div className="results-table__pagination">
+          <button
+            type="button"
+            className="button button--secondary"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage <= 1}
+          >
+            ← Previous
+          </button>
+          <span className="results-table__page-indicator">
+            Page {currentPage} of {pageCount}
+          </span>
+          <button
+            type="button"
+            className="button button--secondary"
+            onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+            disabled={currentPage >= pageCount}
+          >
+            Next →
+          </button>
+        </div>
+      ) : null}
 
       {!isLoading && sorted.length === 0 ? (
         <EmptyState
