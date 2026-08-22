@@ -1,0 +1,1141 @@
+[
+  {
+    "id": "seed:sfspca-mission-hospital",
+    "name": "San Francisco SPCA — Mission Campus Veterinary Hospital",
+    "kind": "veterinary",
+    "orgType": "private_shelter",
+    "lat": 37.7658,
+    "lon": -122.4126,
+    "distanceMiles": null,
+    "address": {
+      "street": "201 Alabama St",
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": "94103",
+      "full": "201 Alabama St, San Francisco, CA 94103"
+    },
+    "phone": "+1-415-554-3000",
+    "email": null,
+    "website": "https://www.sfspca.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "medical",
+      "spay_neuter",
+      "surgery"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.sfspca.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:sfspca-adoption-center",
+    "name": "San Francisco SPCA — Adoption Center",
+    "kind": "animal_shelter",
+    "orgType": "private_shelter",
+    "lat": 37.7663,
+    "lon": -122.4106,
+    "distanceMiles": null,
+    "address": {
+      "street": "250 Florida St",
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": "94103",
+      "full": "250 Florida St, San Francisco, CA 94103"
+    },
+    "phone": "+1-415-554-3000",
+    "email": null,
+    "website": "https://www.sfspca.org/adoptions",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "foster"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.sfspca.org/adoptions",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:sf-animal-care-control",
+    "name": "San Francisco Animal Care & Control",
+    "kind": "animal_shelter",
+    "orgType": "municipal_shelter",
+    "lat": 37.7671,
+    "lon": -122.4132,
+    "distanceMiles": null,
+    "address": {
+      "street": "1200 15th St",
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": "94103",
+      "full": "1200 15th St, San Francisco, CA 94103"
+    },
+    "phone": "+1-415-554-6364",
+    "email": null,
+    "website": "https://www.sfanimalcare.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "animal_control",
+      "intake"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.sfanimalcare.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:oakland-animal-services",
+    "name": "Oakland Animal Services",
+    "kind": "animal_shelter",
+    "orgType": "municipal_shelter",
+    "lat": 37.7796,
+    "lon": -122.2247,
+    "distanceMiles": null,
+    "address": {
+      "street": "1101 29th Ave",
+      "city": "Oakland",
+      "state": "CA",
+      "postcode": "94601",
+      "full": "1101 29th Ave, Oakland, CA 94601"
+    },
+    "phone": "+1-510-535-5602",
+    "email": null,
+    "website": "https://www.oaklandanimalservices.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "animal_control",
+      "intake"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.oaklandanimalservices.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:berkeley-humane",
+    "name": "Berkeley Humane",
+    "kind": "animal_shelter",
+    "orgType": "private_shelter",
+    "lat": 37.8664,
+    "lon": -122.2999,
+    "distanceMiles": null,
+    "address": {
+      "street": "2700 Ninth St",
+      "city": "Berkeley",
+      "state": "CA",
+      "postcode": "94710",
+      "full": "2700 Ninth St, Berkeley, CA 94710"
+    },
+    "phone": "+1-510-845-7735",
+    "email": null,
+    "website": "https://www.berkeleyhumane.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "medical",
+      "foster"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.berkeleyhumane.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:peninsula-humane-society",
+    "name": "Peninsula Humane Society & SPCA",
+    "kind": "animal_shelter",
+    "orgType": "private_shelter",
+    "lat": 37.5875,
+    "lon": -122.3714,
+    "distanceMiles": null,
+    "address": {
+      "street": "1450 Rollins Rd",
+      "city": "Burlingame",
+      "state": "CA",
+      "postcode": "94010",
+      "full": "1450 Rollins Rd, Burlingame, CA 94010"
+    },
+    "phone": "+1-650-340-7022",
+    "email": null,
+    "website": "https://www.phs-spca.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "medical",
+      "wildlife",
+      "foster"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.phs-spca.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:humane-society-silicon-valley",
+    "name": "Humane Society Silicon Valley",
+    "kind": "animal_shelter",
+    "orgType": "private_shelter",
+    "lat": 37.4082,
+    "lon": -121.9339,
+    "distanceMiles": null,
+    "address": {
+      "street": "901 Ames Ave",
+      "city": "Milpitas",
+      "state": "CA",
+      "postcode": "95035",
+      "full": "901 Ames Ave, Milpitas, CA 95035"
+    },
+    "phone": "+1-408-262-2133",
+    "email": null,
+    "website": "https://www.hssv.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "medical",
+      "spay_neuter"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.hssv.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:marin-humane",
+    "name": "Marin Humane",
+    "kind": "animal_shelter",
+    "orgType": "private_shelter",
+    "lat": 38.0836,
+    "lon": -122.531,
+    "distanceMiles": null,
+    "address": {
+      "street": "171 Bel Marin Keys Blvd",
+      "city": "Novato",
+      "state": "CA",
+      "postcode": "94949",
+      "full": "171 Bel Marin Keys Blvd, Novato, CA 94949"
+    },
+    "phone": "+1-415-883-4621",
+    "email": null,
+    "website": "https://www.marinhumane.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "medical",
+      "behavioral",
+      "animal_control"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.marinhumane.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:milo-foundation",
+    "name": "Milo Foundation — Point Richmond Adoption Center",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.9114,
+    "lon": -122.3773,
+    "distanceMiles": null,
+    "address": {
+      "street": "220 S Garrard Blvd",
+      "city": "Point Richmond",
+      "state": "CA",
+      "postcode": "94801",
+      "full": "220 S Garrard Blvd, Point Richmond, CA 94801"
+    },
+    "phone": null,
+    "email": null,
+    "website": "https://www.milofoundation.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "foster",
+      "medical"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.milofoundation.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:hopalong-animal-rescue",
+    "name": "Hopalong Animal Rescue (a Marin Humane program)",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7853,
+    "lon": -122.2367,
+    "distanceMiles": null,
+    "address": {
+      "street": "1035 22nd Ave, Suite 3",
+      "city": "Oakland",
+      "state": "CA",
+      "postcode": "94606",
+      "full": "1035 22nd Ave, Suite 3, Oakland, CA 94606"
+    },
+    "phone": "+1-510-267-1915",
+    "email": null,
+    "website": "https://www.marinhumane.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "foster"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.marinhumane.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:furry-friends-rescue",
+    "name": "Furry Friends Rescue",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.3688,
+    "lon": -122.0363,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Sunnyvale",
+      "state": "CA",
+      "postcode": null,
+      "full": "Sunnyvale, CA (foster-based, no public facility)"
+    },
+    "phone": "+1-510-794-4703",
+    "email": "info@furryfriendsrescue.org",
+    "website": "https://www.furryfriendsrescue.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "foster",
+      "adoption"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.furryfriendsrescue.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:wonder-cat-rescue",
+    "name": "Wonder Cat Rescue",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7749,
+    "lon": -122.4194,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": null,
+      "full": "San Francisco, CA (foster-based, no public facility)"
+    },
+    "phone": null,
+    "email": null,
+    "website": "https://wondercatrescue.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "cat"
+    ],
+    "capabilities": [
+      "foster",
+      "adoption"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://wondercatrescue.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:coppers-dream-rescue",
+    "name": "Copper's Dream Rescue",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.3688,
+    "lon": -122.0363,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Sunnyvale",
+      "state": "CA",
+      "postcode": null,
+      "full": "Foster-based rescue — no public facility; serves the greater Bay Area"
+    },
+    "phone": null,
+    "email": null,
+    "website": "https://www.coppersdream.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "adoption"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.coppersdream.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {
+      "note": "Foster-based: animals live in volunteer homes. Public sources disagree on a mailing address (Sunnyvale / SF / Redwood City), so no street address is asserted. Coordinates are a service-area approximation, not a visitable location."
+    }
+  },
+  {
+    "id": "seed:family-dog-rescue",
+    "name": "Family Dog Rescue",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7749,
+    "lon": -122.4194,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": "94140",
+      "full": "PO Box 40177, San Francisco, CA 94140 (foster-based, no public facility)"
+    },
+    "phone": null,
+    "email": "adopt@ilovefamilydog.org",
+    "website": "https://ilovefamilydog.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "adoption"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://ilovefamilydog.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:muttville-senior-dog-rescue",
+    "name": "Muttville Senior Dog Rescue",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7595,
+    "lon": -122.4108,
+    "distanceMiles": null,
+    "address": {
+      "street": "750 Florida St",
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": "94110",
+      "full": "750 Florida St, San Francisco, CA 94110"
+    },
+    "phone": "+1-415-272-4172",
+    "email": "info@muttville.org",
+    "website": "https://muttville.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "adoption",
+      "senior",
+      "medical"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://muttville.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:rocket-dog-rescue",
+    "name": "Rocket Dog Rescue — Urban Sanctuary",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7745,
+    "lon": -122.2168,
+    "distanceMiles": null,
+    "address": {
+      "street": "3561 Foothill Blvd",
+      "city": "Oakland",
+      "state": "CA",
+      "postcode": "94601",
+      "full": "3561 Foothill Blvd, Oakland, CA 94601 (open by appointment)"
+    },
+    "phone": "+1-415-756-8188",
+    "email": null,
+    "website": "https://www.rocketdogrescue.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "adoption"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.rocketdogrescue.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:grateful-dogs-rescue",
+    "name": "Grateful Dogs Rescue",
+    "kind": "animal_shelter",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7749,
+    "lon": -122.4194,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": "94141",
+      "full": "PO Box 411013, San Francisco, CA 94141 (foster-based, no public facility)"
+    },
+    "phone": "+1-415-587-1121",
+    "email": null,
+    "website": "https://www.gratefuldogsrescue.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "adoption"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.gratefuldogsrescue.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:contra-costa-animal-services",
+    "name": "Contra Costa Animal Services",
+    "kind": "animal_shelter",
+    "orgType": "municipal_shelter",
+    "lat": 38.0027,
+    "lon": -122.1175,
+    "distanceMiles": null,
+    "address": {
+      "street": "4800 Imhoff Pl",
+      "city": "Martinez",
+      "state": "CA",
+      "postcode": "94553",
+      "full": "4800 Imhoff Pl, Martinez, CA 94553"
+    },
+    "phone": "+1-925-608-8400",
+    "email": null,
+    "website": "https://www.contracosta.ca.gov/632/Animal-Services",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "animal_control",
+      "intake"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://www.contracosta.ca.gov/632/Animal-Services",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:palo-alto-animal-shelter",
+    "name": "Palo Alto Animal Shelter (operated by Pets In Need)",
+    "kind": "animal_shelter",
+    "orgType": "private_shelter",
+    "lat": 37.4394,
+    "lon": -122.1141,
+    "distanceMiles": null,
+    "address": {
+      "street": "3281 E Bayshore Rd",
+      "city": "Palo Alto",
+      "state": "CA",
+      "postcode": "94303",
+      "full": "3281 E Bayshore Rd, Palo Alto, CA 94303"
+    },
+    "phone": "+1-650-496-5971",
+    "email": null,
+    "website": "https://petsinneed.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "medical",
+      "foster"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://petsinneed.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:joybound-people-and-pets",
+    "name": "Joybound People & Pets (formerly ARF)",
+    "kind": "animal_shelter",
+    "orgType": "private_shelter",
+    "lat": 37.9101,
+    "lon": -122.0308,
+    "distanceMiles": null,
+    "address": {
+      "street": "2890 Mitchell Dr",
+      "city": "Walnut Creek",
+      "state": "CA",
+      "postcode": "94598",
+      "full": "2890 Mitchell Dr, Walnut Creek, CA 94598"
+    },
+    "phone": "+1-925-256-1273",
+    "email": null,
+    "website": "https://joybound.org",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "medical",
+      "behavioral"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://joybound.org",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "seed:sonoma-county-animal-services",
+    "name": "Sonoma County Animal Services",
+    "kind": "animal_shelter",
+    "orgType": "municipal_shelter",
+    "lat": 38.4636,
+    "lon": -122.7247,
+    "distanceMiles": null,
+    "address": {
+      "street": "1247 Century Ct",
+      "city": "Santa Rosa",
+      "state": "CA",
+      "postcode": "95403",
+      "full": "1247 Century Ct, Santa Rosa, CA 95403"
+    },
+    "phone": "+1-707-565-7100",
+    "email": null,
+    "website": "https://sonomacounty.gov/health-and-human-services/health-services/divisions/public-health/animal-services",
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "adoption",
+      "animal_control",
+      "intake"
+    ],
+    "isSynthetic": false,
+    "source": "seed",
+    "sourceUrl": "https://sonomacounty.gov/health-and-human-services/health-services/divisions/public-health/animal-services",
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-01",
+    "name": "Foster home #1 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7834,
+    "lon": -122.4312,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "San Francisco",
+      "state": "CA",
+      "postcode": null,
+      "full": "San Francisco, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "cat"
+    ],
+    "capabilities": [
+      "foster",
+      "neonatal",
+      "bottle_baby"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-02",
+    "name": "Foster home #2 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.7912,
+    "lon": -122.2599,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Oakland",
+      "state": "CA",
+      "postcode": null,
+      "full": "Oakland, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "senior",
+      "hospice"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-03",
+    "name": "Foster home #3 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.8801,
+    "lon": -122.2618,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Berkeley",
+      "state": "CA",
+      "postcode": null,
+      "full": "Berkeley, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "medical",
+      "post_surgical"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-04",
+    "name": "Foster home #4 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.326,
+    "lon": -121.8951,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "San Jose",
+      "state": "CA",
+      "postcode": null,
+      "full": "San Jose, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "large_dog",
+      "behavioral"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-05",
+    "name": "Foster home #5 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.4931,
+    "lon": -122.2286,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Redwood City",
+      "state": "CA",
+      "postcode": null,
+      "full": "Redwood City, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "cat"
+    ],
+    "capabilities": [
+      "foster",
+      "neonatal",
+      "bottle_baby"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-06",
+    "name": "Foster home #6 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.9024,
+    "lon": -122.0559,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Walnut Creek",
+      "state": "CA",
+      "postcode": null,
+      "full": "Walnut Creek, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "behavioral",
+      "large_dog"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-07",
+    "name": "Foster home #7 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 38.4512,
+    "lon": -122.7018,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Santa Rosa",
+      "state": "CA",
+      "postcode": null,
+      "full": "Santa Rosa, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "cat"
+    ],
+    "capabilities": [
+      "foster",
+      "senior",
+      "hospice"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-08",
+    "name": "Foster home #8 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.5601,
+    "lon": -121.9762,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Fremont",
+      "state": "CA",
+      "postcode": null,
+      "full": "Fremont, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "small_dog",
+      "special_needs",
+      "medical"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-09",
+    "name": "Foster home #9 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 38.0952,
+    "lon": -122.581,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Novato",
+      "state": "CA",
+      "postcode": null,
+      "full": "Novato, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat",
+      "rabbit"
+    ],
+    "capabilities": [
+      "foster",
+      "small_dog",
+      "senior"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-10",
+    "name": "Foster home #10 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.4531,
+    "lon": -122.131,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Palo Alto",
+      "state": "CA",
+      "postcode": null,
+      "full": "Palo Alto, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "cat"
+    ],
+    "capabilities": [
+      "foster",
+      "medical",
+      "hospice"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-11",
+    "name": "Foster home #11 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 38.1183,
+    "lon": -122.2429,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "Vallejo",
+      "state": "CA",
+      "postcode": null,
+      "full": "Vallejo, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog"
+    ],
+    "capabilities": [
+      "foster",
+      "large_dog",
+      "behavioral"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  },
+  {
+    "id": "synthetic:foster-12",
+    "name": "Foster home #12 (synthetic)",
+    "kind": "animal_boarding",
+    "orgType": "foster_based_rescue",
+    "lat": 37.5714,
+    "lon": -122.3145,
+    "distanceMiles": null,
+    "address": {
+      "street": null,
+      "city": "San Mateo",
+      "state": "CA",
+      "postcode": null,
+      "full": "San Mateo, CA"
+    },
+    "phone": null,
+    "email": null,
+    "website": null,
+    "openingHours": null,
+    "speciesAccepted": [
+      "dog",
+      "cat"
+    ],
+    "capabilities": [
+      "foster",
+      "neonatal",
+      "bottle_baby",
+      "medical"
+    ],
+    "isSynthetic": true,
+    "source": "synthetic",
+    "sourceUrl": null,
+    "lastVerifiedAt": "2026-08-22T00:00:00.000Z",
+    "enrichment": null,
+    "raw": {}
+  }
+]

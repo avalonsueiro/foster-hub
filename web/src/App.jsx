@@ -1,0 +1,148 @@
+import { useState } from 'react';
+import SearchBar from './components/SearchBar.jsx';
+import StatsBar from './components/StatsBar.jsx';
+import MapView from './components/MapView.jsx';
+import ResultsTable from './components/ResultsTable.jsx';
+import EmptyState from './components/EmptyState.jsx';
+import { searchOrganizations } from './api.js';
+
+const DEFAULT_KINDS = ['animal_shelter', 'veterinary', 'animal_boarding'];
+
+export default function App() {
+  const [location, setLocation] = useState('');
+  const [radiusMiles, setRadiusMiles] = useState(30);
+  const [kinds, setKinds] = useState(DEFAULT_KINDS);
+  const [includeSynthetic, setIncludeSynthetic] = useState(false);
+
+  const [hasSearched, setHasSearched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [result, setResult] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+
+  async function runSearch(locationOverride) {
+    const searchLocation = (locationOverride ?? location).trim();
+    setHasSearched(true);
+    setError(null);
+    setIsLoading(true);
+    setSelectedId(null);
+
+    if (!searchLocation) {
+      setIsLoading(false);
+      setError('Enter a location to search — a city, zip code, or address.');
+      setResult(null);
+      return;
+    }
+
+    try {
+      const response = await searchOrganizations({
+        location: searchLocation,
+        radiusMiles,
+        kinds,
+        includeSynthetic,
+      });
+      setResult(response);
+    } catch (err) {
+      setError(err.message || 'Search failed. Please try again.');
+      setResult(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  function handleQuickFill() {
+    setLocation('San Francisco, CA');
+    runSearch('San Francisco, CA');
+  }
+
+  const organizations = result?.organizations || [];
+  const center = result?.query?.center || null;
+  const effectiveRadius = result?.query?.radiusMiles ?? radiusMiles;
+  const warnings = result?.warnings || [];
+
+  const showInitialEmptyState = !hasSearched && !isLoading;
+
+  return (
+    <div className="app">
+      <header className="app__header">
+        <div className="app__title">
+          <h1>Regional shelter &amp; foster search</h1>
+          <p className="app__subtitle">
+            Find animal shelters, vets, and boarding facilities near a location.
+          </p>
+        </div>
+        <SearchBar
+          location={location}
+          radiusMiles={radiusMiles}
+          kinds={kinds}
+          includeSynthetic={includeSynthetic}
+          onLocationChange={setLocation}
+          onRadiusChange={setRadiusMiles}
+          onKindsChange={setKinds}
+          onIncludeSyntheticChange={setIncludeSynthetic}
+          onSubmit={runSearch}
+          isLoading={isLoading}
+        />
+      </header>
+
+      {error ? (
+        <div className="banner banner--error" role="alert">
+          <strong>Search failed.</strong> {error}
+        </div>
+      ) : null}
+
+      {warnings.length > 0 ? (
+        <div className="banner banner--warning" role="status">
+          {warnings.map((warning, index) => (
+            <p key={index}>{warning}</p>
+          ))}
+        </div>
+      ) : null}
+
+      {result ? (
+        <StatsBar
+          counts={result.counts}
+          resolvedName={result.query?.resolvedName}
+          radiusMiles={effectiveRadius}
+        />
+      ) : null}
+
+      {showInitialEmptyState ? (
+        <EmptyState
+          glyph="🐾"
+          title="Search for a location to get started"
+          description="Type a city, zip code, or address above, choose a radius, and press search. Results include animal shelters, vets, and boarding facilities nearby."
+          actionLabel="Try San Francisco, CA"
+          onAction={handleQuickFill}
+        />
+      ) : (
+        <main className="app__main">
+          <section className="app__map">
+            <MapView
+              center={center}
+              radiusMiles={effectiveRadius}
+              organizations={organizations}
+              selectedId={selectedId}
+              onSelect={setSelectedId}
+            />
+            {isLoading ? (
+              <div className="app__map-overlay">
+                <span>Searching…</span>
+              </div>
+            ) : null}
+          </section>
+
+          <section className="app__table">
+            <ResultsTable
+              organizations={organizations}
+              isLoading={isLoading}
+              selectedId={selectedId}
+              onSelectRow={setSelectedId}
+              hasSearched={hasSearched}
+            />
+          </section>
+        </main>
+      )}
+    </div>
+  );
+}
