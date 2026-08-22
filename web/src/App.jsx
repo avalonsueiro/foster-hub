@@ -6,7 +6,10 @@ import ResultsTable from './components/ResultsTable.jsx';
 import EmptyState from './components/EmptyState.jsx';
 import { searchOrganizations } from './api.js';
 
-const DEFAULT_KINDS = ['animal_shelter', 'veterinary', 'animal_boarding'];
+// Default to shelters and rescues only. Vets and boarding are useful for a
+// coordinator who already knows the animal, but they roughly double the
+// row count for someone trying to place one dog — opt-in via the checkboxes.
+const DEFAULT_KINDS = ['animal_shelter'];
 
 export default function App() {
   const [location, setLocation] = useState('');

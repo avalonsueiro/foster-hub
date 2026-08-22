@@ -14,6 +14,7 @@ const COLUMNS = [
   { key: 'name', label: 'Name', align: 'left' },
   { key: 'orgType', label: 'Type', align: 'left' },
   { key: 'distanceMiles', label: 'Distance', align: 'right' },
+  { key: 'transfer', label: 'Transfer right', align: 'left' },
   { key: 'city', label: 'City', align: 'left' },
   { key: 'phone', label: 'Phone', align: 'left' },
   { key: 'website', label: 'Website', align: 'left' },
@@ -27,6 +28,8 @@ function getSortValue(org, key) {
       return ORG_TYPE_LABELS[org.orgType] || org.orgType || '';
     case 'distanceMiles':
       return typeof org.distanceMiles === 'number' ? org.distanceMiles : Infinity;
+    case 'transfer':
+      return org.haydenTransferRight === true ? 0 : org.haydenTransferRight === false ? 1 : 2;
     case 'city':
       return (org.address?.city || '').toLowerCase();
     case 'phone':
@@ -157,6 +160,29 @@ export default function ResultsTable({
                     </td>
                     <td className="align-right">
                       {typeof org.distanceMiles === 'number' ? `${org.distanceMiles.toFixed(1)} mi` : '—'}
+                      {org.locationPrecision === 'city' ? (
+                        <span className="precision-note" title="Registered city only — not a street address">
+                          ~city
+                        </span>
+                      ) : null}
+                    </td>
+                    <td>
+                      {org.haydenTransferRight === true ? (
+                        <a
+                          className="badge badge--transfer"
+                          href={org.complianceSource || '#'}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          onClick={(e) => e.stopPropagation()}
+                          title={`501(c)(3), EIN ${org.ein}. Under CA Food & Ag Code 31108/31752 a shelter must release a stray to a qualified 501(c)(3) rescue that requests it before euthanasia. Verify before relying.`}
+                        >
+                          501(c)(3)
+                        </a>
+                      ) : (
+                        <span className="muted" title="No IRS record matched — status unverified">
+                          unverified
+                        </span>
+                      )}
                     </td>
                     <td title={org.address?.city || ''} className="truncate">
                       {org.address?.city || '—'}

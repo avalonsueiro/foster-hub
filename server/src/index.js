@@ -11,6 +11,7 @@ import cors from 'cors';
 
 import { geocodeLocation } from './geocode.js';
 import { fetchNearby } from './overpass.js';
+import { fetchNonprofitsNear, prewarm } from './nonprofits.js';
 import { normalizeElement } from './normalize.js';
 import { enrichOrganizations } from './enrich.js';
 import { distanceMiles } from './distance.js';
@@ -64,11 +65,69 @@ function dedupe(orgs) {
     return score;
   }
 
+  // Loose name key so "Muttville" and "Muttville Senior Dog Rescue" collide.
+  // Returns '' for records we must never merge (see UNMERGEABLE below).
+  function nameKey(org) {
+    let n = (org.name || '').toLowerCase();
+
+    // The IRS spells out what everyone else abbreviates. Without this,
+    // "San Francisco Society For The Prevention Of Cruelty To Animals" and
+    // "San Francisco SPCA" stay separate rows for the same organisation.
+    n = n.replace(/society for the prevention of cruelty to animals/g, 'spca');
+    n = n.replace(/s\.p\.c\.a\.?/g, 'spca');
+    n = n.replace(/humane society/g, 'humane');
+
+    return n
+      .replace(/\b(inc|incorporated|the|a|of|and|foundation|rescue|shelter|animal|animals|senior|dog|dogs|cat|cats|center|centre|adoption|campus)\b/g, '')
+      .replace(/[^a-z0-9]/g, '');
+  }
+
+  // An OSM feature with no name tag carries no identity. Two of them are not
+  // the same facility just because both normalise to "unnamed" — merging them
+  // silently deletes a real location.
+  function unmergeable(org) {
+    return !org.name || /^unnamed\b/i.test(org.name.trim());
+  }
+
+  // An org can appear in BOTH sources: Overpass has the precise building
+  // coordinates, the IRS record has EIN and 501(c)(3) status. Neither alone
+  // is complete, so merge rather than discard — keep the mapped location,
+  // graft on the compliance fields.
+  function merge(a, b) {
+    const mapped = a.source === 'irs' ? b : a;
+    const registry = a.source === 'irs' ? a : b;
+    if (mapped === registry) return fieldScore(a) >= fieldScore(b) ? a : b;
+    return {
+      ...mapped,
+      ein: registry.ein ?? mapped.ein ?? null,
+      is501c3: registry.is501c3 ?? mapped.is501c3 ?? null,
+      haydenTransferRight: registry.haydenTransferRight ?? mapped.haydenTransferRight ?? null,
+      complianceSource: registry.complianceSource ?? mapped.complianceSource ?? null,
+      complianceVerifiedAt: registry.complianceVerifiedAt ?? mapped.complianceVerifiedAt ?? null,
+      source: 'overpass+irs',
+    };
+  }
+
   for (const org of orgs) {
-    const nameNorm = (org.name || '').trim().toLowerCase();
+    if (unmergeable(org)) { kept.push(org); continue; }
+    const key = nameKey(org);
+    if (key.length < 3) { kept.push(org); continue; }
+
     const existingIndex = kept.findIndex((other) => {
-      const otherNameNorm = (other.name || '').trim().toLowerCase();
-      if (otherNameNorm !== nameNorm) return false;
+      if (unmergeable(other)) return false;
+      const otherKey = nameKey(other);
+      // Exact match, or one key is a prefix-ish superset of the other. The IRS
+      // legal name and the mapped branch name rarely match character for
+      // character ("San Francisco SPCA" vs "SF SPCA Pet Adoption Center,
+      // Mission Campus"), so require containment plus a meaningful length.
+      const related =
+        otherKey === key ||
+        (key.length >= 8 && otherKey.startsWith(key)) ||
+        (otherKey.length >= 8 && key.startsWith(otherKey));
+      if (!related) return false;
+      // Same name in different sources counts as the same org even when one
+      // side only knows the city; require proximity only when both are mapped.
+      if (org.source === 'irs' || other.source === 'irs') return true;
       if (org.lat == null || org.lon == null || other.lat == null || other.lon == null) {
         return false;
       }
@@ -77,8 +136,8 @@ function dedupe(orgs) {
 
     if (existingIndex === -1) {
       kept.push(org);
-    } else if (fieldScore(org) > fieldScore(kept[existingIndex])) {
-      kept[existingIndex] = org;
+    } else {
+      kept[existingIndex] = merge(kept[existingIndex], org);
     }
   }
 
@@ -108,6 +167,9 @@ app.post('/api/search', async (req, res) => {
 
   const enrich = Boolean(body.enrich);
   const includeSynthetic = Boolean(body.includeSynthetic);
+  // Registry source is on by default: it is the only source that sees
+  // foster-based rescues, which Overpass structurally cannot.
+  const includeNonprofits = body.includeNonprofits !== false;
 
   let center;
   let resolvedName;
@@ -162,6 +224,16 @@ app.post('/api/search', async (req, res) => {
     }
   }
 
+  if (includeNonprofits) {
+    const registry = await fetchNonprofitsNear({ center, radiusMiles });
+    if (registry.length) {
+      organizations = organizations.concat(registry);
+      warnings.push(
+        `${registry.length} IRS-registered nonprofits included — located to city level only, not a street address.`,
+      );
+    }
+  }
+
   if (includeSynthetic) {
     const seed = await loadSeedData();
     if (seed) {
@@ -209,4 +281,5 @@ app.post('/api/search', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`dog-agentic-search server listening on port ${PORT}`);
+  prewarm('CA'); // fill the registry cache in the background
 });

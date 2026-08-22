@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const KIND_OPTIONS = [
-  { value: 'animal_shelter', label: 'Animal shelters' },
+  { value: 'animal_shelter', label: 'Shelters & rescues' },
   { value: 'veterinary', label: 'Vets' },
   { value: 'animal_boarding', label: 'Boarding' },
 ];
