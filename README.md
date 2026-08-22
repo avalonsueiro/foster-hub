@@ -45,7 +45,7 @@ Or individually: `npm run dev:server` / `npm run dev:web`.
 |---------------------|----------|--------------------------------------------------------------|
 | `location`          | string   | Free-text place, geocoded via Nominatim                      |
 | `lat`, `lon`        | number   | Alternative to `location` — skips geocoding entirely         |
-| `radiusMiles`       | number   | Search radius in miles; clamped to 1–100, defaults to 30      |
+| `radiusMiles`       | number   | Search radius in miles; clamped to 1–100, defaults to 10      |
 | `kinds`             | string[] | Any of `animal_shelter`, `veterinary`, `animal_boarding`     |
 | `includeNonprofits` | boolean  | IRS registry source. Default **true**                        |
 | `includeSynthetic`  | boolean  | Add fabricated foster-home records. Default false            |
