@@ -27,11 +27,24 @@ export default function SearchBar({
   const [draftLocation, setDraftLocation] = useState(location);
   const [isLocating, setIsLocating] = useState(false);
   const [geoError, setGeoError] = useState(null);
+  // Once set, re-submitting the form reuses these coordinates instead of
+  // trying to geocode the literal "Current location" placeholder text.
+  // Cleared as soon as the user edits the location field by hand.
+  const [currentCoords, setCurrentCoords] = useState(null);
+
+  function handleLocationInput(value) {
+    setDraftLocation(value);
+    setCurrentCoords(null);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
     onLocationChange(draftLocation);
-    onSubmit(draftLocation);
+    if (currentCoords) {
+      onSubmit({ location: draftLocation, lat: currentCoords.lat, lon: currentCoords.lon });
+    } else {
+      onSubmit(draftLocation);
+    }
   }
 
   function handleUseCurrentLocation() {
@@ -46,8 +59,10 @@ export default function SearchBar({
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setIsLocating(false);
+        const { latitude, longitude } = position.coords;
         setDraftLocation('Current location');
-        onUseCurrentLocation(position.coords.latitude, position.coords.longitude);
+        setCurrentCoords({ lat: latitude, lon: longitude });
+        onUseCurrentLocation(latitude, longitude);
       },
       (err) => {
         setIsLocating(false);
@@ -79,7 +94,7 @@ export default function SearchBar({
             type="text"
             placeholder="City, zip, or address"
             value={draftLocation}
-            onChange={(event) => setDraftLocation(event.target.value)}
+            onChange={(event) => handleLocationInput(event.target.value)}
             autoComplete="off"
           />
           <button
